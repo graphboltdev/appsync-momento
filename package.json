@@ -1,0 +1,17 @@
+{
+  "name": "appsync-momento-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benoît Bouré",
+  "license": "ISC",
+  "devDependencies": {
+    "@aws-appsync/eslint-plugin": "^1.2.1",
+    "@aws-appsync/utils": "^1.2.5",
+    "eslint": "^8.28.0",
+    "prettier": "^2.8.4",
+    "serverless": "^3.19.0",
+    "serverless-appsync-plugin": "^2.2.0"
+  }
+}

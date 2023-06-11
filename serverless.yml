@@ -1,0 +1,57 @@
+service: event-bridge-datasource
+
+frameworkVersion: '3'
+
+configValidationMode: error
+
+plugins:
+  - serverless-appsync-plugin
+
+provider:
+  name: aws
+  region: us-east-1
+
+appSync:
+  name: momento-appsync
+
+  logging:
+    level: ALL
+
+  xrayEnabled: true
+
+  authentication:
+    type: API_KEY
+
+  apiKeys:
+    - name: Default
+
+  substitutions:
+    token: ${file(momento.js):getMomentoApiKey}
+
+  dataSources:
+    wikipedia:
+      type: HTTP
+      config:
+        endpoint: 'https://en.wikipedia.org'
+
+    momento:
+      type: HTTP
+      config:
+        endpoint: ${file(momento.js):getMomentoUrl}
+
+  resolvers:
+    Query.wikipedia:
+      functions:
+        - getCacheItem
+        - dataSource: wikipedia
+          code: resolvers/wikipedia.js
+        - putCacheItem
+
+  pipelineFunctions:
+    getCacheItem:
+      code: resolvers/getCacheItem.js
+      dataSource: momento
+
+    putCacheItem:
+      code: resolvers/putCacheItem.js
+      dataSource: momento

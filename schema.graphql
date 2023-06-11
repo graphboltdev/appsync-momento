@@ -1,0 +1,13 @@
+type Query {
+  wikipedia(title: String!): Wiki!
+}
+
+type Wiki {
+  pageid: ID!
+  title: String!
+  extract: String!
+}
+
+schema {
+  query: Query
+}
